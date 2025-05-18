@@ -1,0 +1,78 @@
+{
+    "name": "LinkedIn Job Analysis Theme",
+    "dataColors": [
+        "#0077B5",
+        "#00A0DC",
+        "#0073B1",
+        "#006097",
+        "#004471",
+        "#003B5C",
+        "#002D44",
+        "#001E2E",
+        "#000F17",
+        "#000000"
+    ],
+    "background": "#FFFFFF",
+    "foreground": "#000000",
+    "tableAccent": "#0077B5",
+    "visualStyles": {
+        "title": {
+            "title": {
+                "fontFamily": "Segoe UI",
+                "fontSize": 14,
+                "fontWeight": "SemiBold",
+                "color": {
+                    "solid": {
+                        "color": "#000000"
+                    }
+                }
+            }
+        },
+        "header": {
+            "title": {
+                "fontFamily": "Segoe UI",
+                "fontSize": 12,
+                "fontWeight": "SemiBold",
+                "color": {
+                    "solid": {
+                        "color": "#000000"
+                    }
+                }
+            }
+        },
+        "filterCard": {
+            "title": {
+                "fontFamily": "Segoe UI",
+                "fontSize": 12,
+                "fontWeight": "SemiBold",
+                "color": {
+                    "solid": {
+                        "color": "#000000"
+                    }
+                }
+            }
+        },
+        "card": {
+            "title": {
+                "fontFamily": "Segoe UI",
+                "fontSize": 12,
+                "fontWeight": "SemiBold",
+                "color": {
+                    "solid": {
+                        "color": "#000000"
+                    }
+                }
+            },
+            "value": {
+                "fontFamily": "Segoe UI",
+                "fontSize": 24,
+                "fontWeight": "Bold",
+                "color": {
+                    "solid": {
+                        "color": "#0077B5"
+                    }
+                }
+            }
+        }
+    }
+} 

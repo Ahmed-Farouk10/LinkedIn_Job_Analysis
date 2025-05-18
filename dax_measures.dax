@@ -1,0 +1,103 @@
+# Write DAX measures to a file for Power BI reference
+$daxMeasures = @'
+// Core Metrics
+Total Postings = COUNTROWS('cleaned_jobs_data')
+
+Unique Companies = DISTINCTCOUNT('cleaned_jobs_data'[company])
+
+Unique Locations = DISTINCTCOUNT('cleaned_jobs_data'[location])
+
+// Work Type Analysis
+Remote Jobs = CALCULATE(
+    [Total Postings],
+    'cleaned_jobs_data'[work_type] = "1"
+)
+
+Remote Percentage = DIVIDE(
+    [Remote Jobs],
+    [Total Postings],
+    0
+) * 100
+
+// Top Job Titles
+Top Job Titles = TOPN(
+    10,
+    SUMMARIZE(
+        'cleaned_jobs_data',
+        'cleaned_jobs_data'[title],
+        "Count", [Total Postings]
+    ),
+    [Count]
+)
+
+// Company Analysis
+Company Postings = TOPN(
+    10,
+    SUMMARIZE(
+        'cleaned_jobs_data',
+        'cleaned_jobs_data'[company],
+        "Count", [Total Postings]
+    ),
+    [Count]
+)
+
+// Location Analysis
+Location Postings = TOPN(
+    10,
+    SUMMARIZE(
+        'cleaned_jobs_data',
+        'cleaned_jobs_data'[location],
+        "Count", [Total Postings]
+    ),
+    [Count]
+)
+
+// Time Analysis
+Monthly Postings = CALCULATE(
+    [Total Postings],
+    ALLEXCEPT('cleaned_jobs_data', 'cleaned_jobs_data'[month])
+)
+
+// Employment Type Distribution
+Employment Type Distribution = SUMMARIZE(
+    'cleaned_jobs_data',
+    'cleaned_jobs_data'[employment_type],
+    "Count", [Total Postings]
+)
+
+// Work Type Distribution
+Work Type Distribution = SUMMARIZE(
+    'cleaned_jobs_data',
+    'cleaned_jobs_data'[work_type],
+    "Count", [Total Postings]
+)
+
+// Average Postings per Company
+Avg Postings per Company = DIVIDE(
+    [Total Postings],
+    [Unique Companies],
+    0
+)
+
+// Average Postings per Location
+Avg Postings per Location = DIVIDE(
+    [Total Postings],
+    [Unique Locations],
+    0
+)
+'@
+Set-Content -Path "..\data\dax_measures.txt" -Value $daxMeasures
+
+
+Dashboard Layout Suggestion:
+
+- KPI Cards:
+    - Total Postings
+    - Remote Jobs
+    - Remote Percentage
+- Bar Chart:
+    - Top 10 Job Titles by Count
+- Pie/Donut Chart:
+    - Work Type Distribution (Remote vs. Onsite/Hybrid)
+- Table:
+    - Job Title, Company, Location, Work Type, Date Posted
